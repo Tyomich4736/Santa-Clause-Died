@@ -1,5 +1,7 @@
 package by.nosevich.santaclausedied;
 
+import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -24,9 +26,11 @@ public class GameActivity extends AppCompatActivity {
     private List<String> emotions;
     private int emotionCounter = 0;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_game);
 
         TextView phraseTextView = findViewById(R.id.phraseText);
