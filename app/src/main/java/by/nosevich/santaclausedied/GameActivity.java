@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import by.nosevich.santaclausedied.easteregg.impl.SendingYourDataEasterEgg;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 
 public class GameActivity extends AppCompatActivity {
 
-    public static final String RESOURCES_SPLITTER = "\r\n\\@\r\n";
+    public static final String RESOURCES_SPLITTER = "\r\n@\r\n";
     private List<String> phrases;
     private List<String> emotions;
     private int emotionCounter = 0;
@@ -41,7 +42,12 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void onNextEmotionButtonClick(View view) {
-        updateEmotion();
+        if (emotionCounter != emotions.size()) {
+            updateEmotion();
+        } else {
+            SendingYourDataEasterEgg.getInstance().activate(this);
+            emotionCounter = 0;
+        }
     }
 
 
