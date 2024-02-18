@@ -97,6 +97,9 @@ public class GameActivity extends AppCompatActivity {
         if (settingsService.isSettingEnabled(Setting.HIDE_DIALOG_PHRASES)) {
             phrasesStream = phrasesStream.filter(phrase -> !phrase.getTags().contains(PhraseTag.DIALOG));
         }
+        if (settingsService.isSettingEnabled(Setting.HIDE_SWEAR_PHRASES)) {
+            phrasesStream = phrasesStream.filter(phrase -> !phrase.getTags().contains(PhraseTag.SWEARING));
+        }
         return phrasesStream.map(PhraseDto::getText).collect(Collectors.toList());
     }
 
