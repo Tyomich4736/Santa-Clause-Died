@@ -8,7 +8,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import by.nosevich.santaclausedied.dto.PhraseDto;
+import by.nosevich.santaclausedied.dto.PhraseTag;
+import by.nosevich.santaclausedied.dto.Setting;
 import by.nosevich.santaclausedied.easteregg.impl.SendingYourDataEasterEgg;
+import by.nosevich.santaclausedied.service.SettingsService;
+import by.nosevich.santaclausedied.util.PhrasesParsingUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -19,10 +24,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class GameActivity extends AppCompatActivity {
 
     public static final String RESOURCES_SPLITTER = "\r\n@\r\n";
+
+    private SettingsService settingsService;
+
     private List<String> phrases;
     private List<String> emotions;
     private int emotionCounter = 0;
@@ -33,6 +42,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_game);
+        settingsService = new SettingsService(this);
 
         TextView phraseTextView = findViewById(R.id.phraseText);
         phraseTextView.setMovementMethod(new ScrollingMovementMethod());
@@ -70,8 +80,8 @@ public class GameActivity extends AppCompatActivity {
 
     private void initGameData() {
         try {
-            phrases = initRawResource(R.raw.phrases);
-            emotions = initRawResource(R.raw.emotions);
+            phrases = initPhrases();
+            emotions = initEmotions();
             Collections.shuffle(phrases);
             Collections.shuffle(emotions);
         } catch (IOException e) {
@@ -80,8 +90,18 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private List<String> initRawResource(int id) throws IOException {
-        InputStream inputStream = getResources().openRawResource(id);
+    private List<String> initPhrases() throws IOException {
+        InputStream inputStream = getResources().openRawResource(R.raw.phrases);
+        String phrasesStr = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+        Stream<PhraseDto> phrasesStream = PhrasesParsingUtil.parsePhrases(phrasesStr).stream();
+        if (settingsService.isSettingEnabled(Setting.HIDE_DIALOG_PHRASES)) {
+            phrasesStream = phrasesStream.filter(phrase -> !phrase.getTags().contains(PhraseTag.DIALOG));
+        }
+        return phrasesStream.map(PhraseDto::getText).collect(Collectors.toList());
+    }
+
+    private List<String> initEmotions() throws IOException {
+        InputStream inputStream = getResources().openRawResource(R.raw.emotions);
         String[] itemsArray = IOUtils.toString(inputStream, StandardCharsets.UTF_8).split(RESOURCES_SPLITTER);
         return Arrays.stream(itemsArray).filter(StringUtils::isNoneBlank).collect(Collectors.toList());
     }

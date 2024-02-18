@@ -10,7 +10,7 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String VERSION = "v0.3";
+    private static final String VERSION = "v0.4";
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -23,6 +23,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onStartButtonClick(View view) {
         Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+    }
+
+    public void onSettingsButtonClick(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 

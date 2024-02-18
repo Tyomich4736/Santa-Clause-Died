@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+
+    <Button
+            android:text="Назад"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/settingsApplyButton"
+            android:textSize="26sp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="60dp"
+            android:onClick="onBackButtonClick"/>
+    <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/settingsApplyButton" android:id="@+id/scrollView2"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:scrollbarStyle="insideOverlay" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" android:layout_marginTop="40dp" android:layout_marginBottom="40dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical" android:layout_marginLeft="20dp" android:layout_marginRight="20dp"
+                      android:id="@+id/settingsList"/>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,8 @@
             android:layout_height="200dp" android:id="@+id/startButton"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" android:textSize="44sp"
-            app:layout_constraintTop_toBottomOf="@+id/gameTitle" android:onClick="onStartButtonClick"/>
+            app:layout_constraintTop_toBottomOf="@+id/gameTitle" android:onClick="onStartButtonClick"
+            app:layout_constraintVertical_bias="0.40"/>
     <TextView
             android:text="Умер Дед Мороз"
             android:layout_width="wrap_content"
@@ -33,4 +34,18 @@
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="10dp" app:layout_constraintBottom_toTopOf="@+id/madeByTextView"
             android:textColor="@color/gray"/>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/startButton" android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/madeByTextView" app:layout_constraintVertical_bias="0.0">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/settingsButton"
+                app:icon="@drawable/baseline_settings_24" android:text="Настройки"
+                android:textSize="20sp"
+                android:onClick="onSettingsButtonClick" style="@style/Widget.Material3.Button"/>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
