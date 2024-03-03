@@ -10,7 +10,7 @@
             android:textSize="26sp"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="60dp"
-            android:onClick="onBackButtonClick"/>
+            android:onClick="onBackButtonClick" android:backgroundTint="@color/red"/>
     <ScrollView
             android:layout_width="0dp"
             android:layout_height="wrap_content"

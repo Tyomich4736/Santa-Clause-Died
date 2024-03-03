@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity" android:backgroundTint="@color/red">
     <Button
             android:text="Начать"
             android:layout_width="200dp"
@@ -13,7 +13,7 @@
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" android:textSize="44sp"
             app:layout_constraintTop_toBottomOf="@+id/gameTitle" android:onClick="onStartButtonClick"
-            app:layout_constraintVertical_bias="0.40"/>
+            app:layout_constraintVertical_bias="0.40" app:cornerRadius="100dp" android:backgroundTint="@color/red"/>
     <TextView
             android:text="Умер Дед Мороз"
             android:layout_width="wrap_content"
@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content" android:id="@+id/settingsButton"
                 app:icon="@drawable/baseline_settings_24" android:text="Настройки"
                 android:textSize="20sp"
-                android:onClick="onSettingsButtonClick" style="@style/Widget.Material3.Button"/>
+                android:onClick="onSettingsButtonClick" style="@style/Widget.Material3.Button"
+                android:backgroundTint="@color/red"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

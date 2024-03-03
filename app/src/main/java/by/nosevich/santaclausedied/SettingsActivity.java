@@ -2,6 +2,7 @@ package by.nosevich.santaclausedied;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -85,6 +86,7 @@ public class SettingsActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 1
         ));
+        checkBox.setButtonTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
         checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             settingsService.setSettingEnabled(setting, isChecked);
         });
