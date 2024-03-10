@@ -1,4 +1,4 @@
-package by.nosevich.santaclausedied.dto;
+package by.nosevich.santaclausedied.game;
 
 public enum PhraseTag {
     DIALOG,

@@ -1,8 +1,8 @@
-package by.nosevich.santaclausedied.dto;
+package by.nosevich.santaclausedied.game;
 
 import java.util.Set;
 
-public class PhraseDto {
+public class Phrase {
     private String text;
     private Set<PhraseTag> tags;
 

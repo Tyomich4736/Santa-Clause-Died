@@ -1,7 +1,7 @@
 package by.nosevich.santaclausedied.util;
 
-import by.nosevich.santaclausedied.dto.PhraseDto;
-import by.nosevich.santaclausedied.dto.PhraseTag;
+import by.nosevich.santaclausedied.game.Phrase;
+import by.nosevich.santaclausedied.game.PhraseTag;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
@@ -14,11 +14,11 @@ public final class PhrasesParsingUtil {
     private PhrasesParsingUtil() {
     }
 
-    public static List<PhraseDto> parsePhrases(String string) {
+    public static List<Phrase> parsePhrases(String string) {
         return Arrays.stream(string.split("@"))
                 .filter(StringUtils::isNotBlank)
                 .map(phrase -> {
-                    PhraseDto phraseDto = new PhraseDto();
+                    Phrase phraseDto = new Phrase();
                     phraseDto.setTags(parseTags(phrase.substring(0, phrase.indexOf("\r\n"))));
                     phraseDto.setText(phrase.substring(phrase.indexOf("\r\n") + 2).trim());
                     return phraseDto;

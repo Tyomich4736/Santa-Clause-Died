@@ -2,7 +2,7 @@ package by.nosevich.santaclausedied.service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import by.nosevich.santaclausedied.dto.Setting;
+import by.nosevich.santaclausedied.game.Setting;
 
 import java.util.Arrays;
 import java.util.List;

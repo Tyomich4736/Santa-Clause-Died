@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import by.nosevich.santaclausedied.dto.Setting;
+import by.nosevich.santaclausedied.game.Setting;
 import by.nosevich.santaclausedied.service.SettingsService;
 import org.jetbrains.annotations.NotNull;
 

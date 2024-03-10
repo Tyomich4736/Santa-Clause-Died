@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content" android:id="@+id/settingsButton"
                 app:icon="@drawable/baseline_settings_24" android:text="Настройки"
                 android:textSize="20sp"
+                app:cornerRadius="20dp"
                 android:onClick="onSettingsButtonClick" style="@style/Widget.Material3.Button"
                 android:backgroundTint="@color/red"/>
     </LinearLayout>
