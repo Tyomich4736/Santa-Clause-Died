@@ -2,38 +2,33 @@ package by.nosevich.santaclausedied.game;
 
 import android.content.Context;
 import by.nosevich.santaclausedied.easteregg.impl.SendingYourDataEasterEgg;
+import by.nosevich.santaclausedied.game.containers.emotion.EmotionsContainer;
 
 import java.util.Collections;
 import java.util.List;
 
 public class GameState {
     private final List<Phrase> phrases;
-    private final List<String> emotions;
-    private int emotionCounter = 0;
+    private final EmotionsContainer emotionsContainer;
     private final Context context;
 
 
-    public GameState(Context context, List<Phrase> phrases, List<String> emotions) {
+    public GameState(Context context, List<Phrase> phrases, EmotionsContainer emotionsContainer) {
         this.context = context;
         this.phrases = phrases;
-        this.emotions = emotions;
+        this.emotionsContainer = emotionsContainer;
         Collections.shuffle(phrases);
-        Collections.shuffle(emotions);
     }
 
     public void updatePhraseAndEmotion() {
         Collections.shuffle(phrases);
-        Collections.shuffle(emotions);
-        emotionCounter = 0;
+        emotionsContainer.reset();
     }
 
     public void updateEmotion() {
-        if (emotionCounter != emotions.size()) {
-            emotionCounter++;
-        } else {
-            Collections.shuffle(emotions);
+        if (emotionsContainer.nextEmotion() == null) {
+            emotionsContainer.reset();
             SendingYourDataEasterEgg.getInstance().activate(context);
-            emotionCounter = 0;
         }
     }
 
@@ -42,10 +37,10 @@ public class GameState {
     }
 
     public String getCurrentEmotion() {
-        return emotions.get(emotionCounter);
+        return emotionsContainer.currentEmotion().getText();
     }
 
     public int getCurrentEmotionNumber() {
-        return emotionCounter + 1;
+        return emotionsContainer.currentIndex() + 1;
     }
 }

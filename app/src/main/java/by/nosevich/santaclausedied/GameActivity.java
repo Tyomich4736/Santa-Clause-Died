@@ -8,28 +8,25 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import by.nosevich.santaclausedied.game.Phrase;
-import by.nosevich.santaclausedied.game.PhraseTag;
-import by.nosevich.santaclausedied.game.Setting;
-import by.nosevich.santaclausedied.game.GameState;
+import by.nosevich.santaclausedied.game.*;
+import by.nosevich.santaclausedied.game.containers.emotion.EmotionsContainer;
+import by.nosevich.santaclausedied.game.containers.emotion.EmotionsContainerFactory;
 import by.nosevich.santaclausedied.service.SettingsService;
+import by.nosevich.santaclausedied.util.EmotionsParsingUtil;
 import by.nosevich.santaclausedied.util.PhrasesParsingUtil;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class GameActivity extends AppCompatActivity {
 
-    public static final String RESOURCES_SPLITTER = "\r\n@\r\n";
-
     private SettingsService settingsService;
+    private EmotionsContainerFactory emotionsContainerFactory;
 
     private GameState gameState;
 
@@ -40,6 +37,7 @@ public class GameActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_game);
         settingsService = new SettingsService(this);
+        emotionsContainerFactory = new EmotionsContainerFactory(settingsService);
 
         TextView phraseTextView = findViewById(R.id.phraseText);
         phraseTextView.setMovementMethod(new ScrollingMovementMethod());
@@ -63,7 +61,8 @@ public class GameActivity extends AppCompatActivity {
 
     private void initGameState() {
         try {
-            gameState = new GameState(this, initPhrases(), initEmotions());
+            EmotionsContainer emotionsContainer = emotionsContainerFactory.createEmotionsContainer(initEmotions());
+            gameState = new GameState(this, initPhrases(), emotionsContainer);
         } catch (IOException e) {
             Toast.makeText(this, "Resources reading error", Toast.LENGTH_SHORT).show();
             finishAffinity();
@@ -90,9 +89,9 @@ public class GameActivity extends AppCompatActivity {
         return phrasesStream.collect(Collectors.toList());
     }
 
-    private List<String> initEmotions() throws IOException {
+    private List<Emotion> initEmotions() throws IOException {
         InputStream inputStream = getResources().openRawResource(R.raw.emotions);
-        String[] itemsArray = IOUtils.toString(inputStream, StandardCharsets.UTF_8).split(RESOURCES_SPLITTER);
-        return Arrays.stream(itemsArray).filter(StringUtils::isNoneBlank).collect(Collectors.toList());
+        String emotionsStr = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+        return EmotionsParsingUtil.parseEmotions(emotionsStr);
     }
 }

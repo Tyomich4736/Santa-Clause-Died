@@ -10,7 +10,7 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String VERSION = "v0.7";
+    private static final String VERSION = "v0.8";
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
